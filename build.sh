@@ -43,6 +43,7 @@ install_dependencies()
     intltool \
     libsqlite3-dev \
     libmariadb-dev \
+    libmariadb-dev-compat \
     libssl-dev \
     autoconf \
     libarchive-dev \
@@ -57,7 +58,8 @@ install_dependencies()
     libpq-dev \
     ldap-client \
     libldap-dev \
-    libonig-dev
+    libonig-dev \
+    libjpeg62-turbo-dev libfreetype6 libfreetype6-dev
 }
 
 #
@@ -189,17 +191,18 @@ build_seahub()
 
   # get and build python dependencies
   apt-get install libxml2-dev libxslt-dev
+  apt-get install python-pip
 
   mkdir -p $THIRDPARTYFOLDER
   export PYTHONPATH=$THIRDPARTYFOLDER
 
-  if ! [ -x "$(command -v easy_install)" ]; then
-    pip install easy_install
-  fi
-  while read line; do easy_install -d $THIRDPARTYFOLDER $line; done < requirements.txt
+  # if ! [ -x "$(command -v easy_install)" ]; then
+  #  pip install easy_install
+  # fi
+  while read line; do python -m easy_install -d $THIRDPARTYFOLDER $line; done < requirements.txt
 
   # temporary fix for 7.0.4
-  easy_install -d $THIRDPARTYFOLDER flup==1.0.2 SQLAlchemy==1.3.5 django_picklefield==2.0 urllib3==1.22
+  python -m easy_install -d $THIRDPARTYFOLDER flup==1.0.2 SQLAlchemy==1.3.5 django_picklefield==2.0 urllib3==1.22
 
   # generate package
   ./tools/gen-tarball.py --version=$VERSION_SEAFILE --branch=HEAD
