@@ -42,9 +42,6 @@ install_dependencies()
     uuid-dev \
     intltool \
     libsqlite3-dev \
-    libmariadb-dev \
-    libssl-dev \
-    autoconf \
     libarchive-dev \
     libtool \
     libjansson-dev \
@@ -54,6 +51,8 @@ install_dependencies()
     flex \
     python-setuptools \
     cmake \
+    autoconf \
+    libssl-dev \
     libpq-dev \
     ldap-client \
     libldap-dev \
@@ -300,18 +299,18 @@ echo_complete()
 # MAIN
 #
 
-install_dependencies
-build_libevhtp
+# install_dependencies
+# build_libevhtp
 
-export_python_path
+# export_python_path
 
-build_libsearpc
-build_ccnet
-build_seafile
-build_seahub
-build_seafobj
-build_seafdav
+# build_libsearpc
+# build_ccnet
+# build_seafile
+# build_seahub
+# build_seafobj
+# build_seafdav
 
-copy_pkg_source
-build_server
-echo_complete
+# copy_pkg_source
+# build_server
+# echo_complete
