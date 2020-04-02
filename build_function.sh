@@ -34,7 +34,7 @@ install_dependencies()
   # onigposix (libonig-dev) is dependency for /usr/local/include/evhtp.h
 
   apt-get update
-  apt-get install -y build-essential
+  apt-get install -y build-essential git
   apt-get install -y \
     libevent-dev \
     libcurl4-openssl-dev \
@@ -187,18 +187,15 @@ build_seahub()
   git reset --hard $VERSION_TAG
 
   # get and build python dependencies
-  apt-get install libxml2-dev libxslt-dev
+  apt-get install -y libxml2-dev libxslt-dev python-pip
 
   mkdir -p $THIRDPARTYFOLDER
   export PYTHONPATH=$THIRDPARTYFOLDER
 
-  if ! [ -x "$(command -v easy_install)" ]; then
-    pip install easy_install
-  fi
-  while read line; do easy_install -d $THIRDPARTYFOLDER $line; done < requirements.txt
+  while read line; do python -m easy_install -d $THIRDPARTYFOLDER $line; done < requirements.txt
 
   # temporary fix for 7.0.4
-  easy_install -d $THIRDPARTYFOLDER flup==1.0.2 SQLAlchemy==1.3.5 django_picklefield==2.0 urllib3==1.22
+  python -m easy_install -d $THIRDPARTYFOLDER flup==1.0.2 SQLAlchemy==1.3.5 django_picklefield==2.0 urllib3==1.22
 
   # generate package
   ./tools/gen-tarball.py --version=$VERSION_SEAFILE --branch=HEAD
@@ -282,7 +279,8 @@ build_server()
     --version=$VERSION \
     --thirdpartdir=$THIRDPARTYFOLDER \
     --srcdir=$SCRIPTPATH/$PKGSOURCEDIR \
-    --outputdir=$SCRIPTPATH/$PKGDIR
+    --outputdir=$SCRIPTPATH/$PKGDIR \
+    --yes=yes
 }
 
 #
