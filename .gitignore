@@ -6,3 +6,4 @@ seafile-server-pkgs/
 # build artefacts
 .build.sh.swp
 
+log.txt

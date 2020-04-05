@@ -1,0 +1,1 @@
+rm -rf /opt/seafile/seafile-server-7.0.5/seahub/thirdpart/jsonfield-3.1.0-py2.7.egg /opt/seafile/seafile-server-7.0.5/seahub/thirdpart/django_appconf-1.0.4-py2.7.egg/ && PYTHONPATH=/opt/seafile/seafile-server-7.0.5/seahub/thirdpart/ easy_install -d /opt/seafile/seafile-server-7.0.5/seahub/thirdpart/ django-appconf==1.0.3 jsonfield==2.1.1 idna==2.9

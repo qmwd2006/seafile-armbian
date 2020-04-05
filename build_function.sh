@@ -56,7 +56,9 @@ install_dependencies()
     libpq-dev \
     ldap-client \
     libldap-dev \
-    libonig-dev
+    libonig-dev \
+    libjpeg-dev \
+    libmysqlclient-dev
 }
 
 #
@@ -192,6 +194,8 @@ build_seahub()
   mkdir -p $THIRDPARTYFOLDER
   export PYTHONPATH=$THIRDPARTYFOLDER
 
+  python -m easy_install -d $THIRDPARTYFOLDER django-appconf==1.0.3 jsonfield==2.1.1 idna==2.9 six==1.14.0
+
   while read line; do python -m easy_install -d $THIRDPARTYFOLDER $line; done < requirements.txt
 
   # temporary fix for 7.0.4
@@ -280,7 +284,8 @@ build_server()
     --thirdpartdir=$THIRDPARTYFOLDER \
     --srcdir=$SCRIPTPATH/$PKGSOURCEDIR \
     --outputdir=$SCRIPTPATH/$PKGDIR \
-    --yes=yes
+    --yes
+  mv $SCRIPTPATH/$PKGDIR/seafile-server_${VERSION}_i386.tar.gz $SCRIPTPATH/$PKGDIR/seafile-server_${VERSION}_aarch64.tar.gz
 }
 
 #
